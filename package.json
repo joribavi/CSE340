@@ -1,0 +1,27 @@
+{
+  "name": "cse340",
+  "version": "1.0.0",
+  "description": "Repository created for CSE340 course BYUI",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joribavi/CSE340.git"
+  },
+  "author": "Jonathan Villegas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/joribavi/CSE340/issues"
+  },
+  "homepage": "https://github.com/joribavi/CSE340#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
