@@ -12,7 +12,7 @@ MAIN CSS
 }
 
 :root {
-  --color-primary: #c74d21;        /* orange */
+  --color-primary:  #b35f2a;        /* orange */
   --color-primary-dark: #522312;
   --color-secondary: #4ecdc4;      /* blue */
   --color-accent: #ffe66d;         /* bright yellow */
@@ -79,7 +79,7 @@ nav a {
   color: var(--color-text);
   font-weight: 600;
   padding: 0.6rem 1.2rem;
-  border-radius: 2rem;
+  border-radius: 1.5rem;
   transition: var(--transition);
   font-size: 1rem;
   letter-spacing: 0.3px;
@@ -88,7 +88,7 @@ nav a {
 }
 
 nav a:hover {
-  background: var(--color-primary);
+  background:var(--color-primary) ;
   color: white;
   border-color: var(--color-primary);
   transform: translateY(-2px);
@@ -107,15 +107,11 @@ main {
 
 h1 {
   font-size: 3rem;
-  font-weight: 800;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-weight: 700;
+  color: var(--color-primary);
   margin-bottom: 0.75rem;
   letter-spacing: -0.02em;
   line-height: 1.2;
-  display: inline-block;
 }
 
 h2 {
