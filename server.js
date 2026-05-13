@@ -36,7 +36,10 @@ app.get('/', (req, res) => {
     res.render('home' , {title});
 });
 
-app.get('/organizations', (req, res) => {
+app.get('/organizations', async (req, res) => {
+    const organizations = await getAllOrganizations();
+    console.log(organizations);
+    
     const title = 'Our Partners Organizations';
     res.render('organizations' , {title});
 });
@@ -51,13 +54,7 @@ app.get('/categories', (req, res) => {
     res.render('categories', {title});
 });
 
-app.get('/organizations', async (req, res) => {
-    const organizations = await getAllOrganizations();
-    console.log(organizations);
-      
-    const title = 'Our Partner Organizations';
-    res.render('organizations', { title });
-});
+
 
 app.listen(PORT, async () => {
   try {
