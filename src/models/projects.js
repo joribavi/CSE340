@@ -1,5 +1,5 @@
 import db from './db.js'
-
+/* code to be worked on bellow */
 const getAllProjects = async() => {
     const query = `
         SELECT organization_id, name, description, contact_email, logo_filename
