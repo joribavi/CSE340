@@ -2,10 +2,11 @@
 
     <main>
         <h1><%= title %></h1>
-        <%- include('partials/environmental') %>
-        <%- include('partials/educational') %>
-        <%- include('partials/community') %>
-        <%- include('partials/health') %>
+          <ul style="list-style: none">  
+            <% categories.forEach(category => { %>
+                <li><%= category.category_name %></li>
+            <% }); %>
+          </ul>  
     </main>
 
  <%- include('partials/footer') %>
