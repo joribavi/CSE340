@@ -2,8 +2,10 @@ import db from './db.js'
 /* code to be worked on bellow */
 const getAllProjects = async() => {
     const query = `
-        SELECT organization_id, name, description, contact_email, logo_filename
-      FROM public.Organizations;
+        SELECT p.*,
+        o.name AS organization_name
+        FROM projects p 
+        INNER JOIN organizations o ON p.organization_id = o.organization_id
     `;
 
     const result = await db.query(query);
