@@ -32,7 +32,7 @@ project_date DATE
 );
 
 --inserting data into projects table: 
--- Proyectos para BrightFuture Builders (organization_id = 1)
+-- projects BrightFuture Builders (organization_id = 1)
 INSERT INTO projects (organization_id, project_title, description, location, project_date) VALUES
 (1, 'Community Center Roof Repair', 'Replace damaged roof and install solar panels at the downtown community hub.', 'Springfield, IL', '2025-03-15'),
 (1, 'Park Accessibility Ramp', 'Build wheelchair-accessible ramps and pathways in Central Park.', 'Springfield, IL', '2025-04-10'),
@@ -41,7 +41,7 @@ INSERT INTO projects (organization_id, project_title, description, location, pro
 (1, 'Community Garden Shed', 'Construct a tool shed and rainwater collection system for the community garden.', 'Springfield, IL', '2025-07-12'),
 (1, 'Shelter Energy Efficiency Upgrade', 'Install insulation and LED lighting at a local homeless shelter.', 'Springfield, IL', '2025-08-05');
 
--- Proyectos para GreenHarvest Growers (organization_id = 2)
+-- Projects  GreenHarvest Growers (organization_id = 2)
 INSERT INTO projects (organization_id, project_title, description, location, project_date) VALUES
 (2, 'Urban Rooftop Farm', 'Install raised beds and irrigation on the rooftop of a downtown parking garage.', 'Chicago, IL', '2025-04-05'),
 (2, 'School Garden Workshop', 'Build raised garden beds and host workshops for students at Washington Middle School.', 'Evanston, IL', '2025-05-18'),
@@ -50,7 +50,7 @@ INSERT INTO projects (organization_id, project_title, description, location, pro
 (2, 'Hydroponic Greenhouse Construction', 'Build a small hydroponic greenhouse for year-round leafy green production.', 'Milwaukee, WI', '2025-08-10'),
 (2, 'Seed Library Launch', 'Create a free seed lending library at the local public library.', 'Chicago, IL', '2025-09-01');
 
--- Proyectos para UnityServe Volunteers (organization_id = 3)
+-- Projects UnityServe Volunteers (organization_id = 3)
 INSERT INTO projects (organization_id, project_title, description, location, project_date) VALUES
 (3, 'Beach Cleanup Day', 'Organize volunteers to remove debris from Lake Michigan shoreline.', 'St. Joseph, MI', '2025-06-05'),
 (3, 'Senior Center Meal Delivery', 'Recruit drivers to deliver hot meals to homebound seniors.', 'South Bend, IN', '2025-03-20'),
@@ -58,3 +58,31 @@ INSERT INTO projects (organization_id, project_title, description, location, pro
 (3, 'Winter Coat Distribution', 'Collect, clean, and distribute coats to homeless shelters.', 'Fort Wayne, IN', '2025-10-15'),
 (3, 'Trail Maintenance Day', 'Clear brush and repair footbridges on the regional hiking trail.', 'Holland, MI', '2025-09-12'),
 (3, 'Blood Drive Coordination', 'Organize a community blood drive with the local Red Cross.', 'South Bend, IN', '2025-11-08');
+
+--Create categories and intermediate table for project categories to create a many to many relationship
+
+CREATE TABLE categories (
+  category_id SERIAL PRIMARY KEY,
+  category_name VARCHAR(150) UNIQUE NOT NULL
+);
+
+CREATE TABLE project_categories (
+  project_id INTEGER NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
+  category_id INTEGER NOT NULL REFERENCES categories(category_id) ON DELETE CASCADE,
+  PRIMARY KEY (project_id, category_id)
+);
+
+--inserting info to categories table , avoding manually addition of category_id (will be added it automatically)
+INSERT INTO categories (category_name) VALUES
+('Environmental'),
+('Educational'),
+('Community Service'),
+('Health and Wellness');
+
+--inserting the data into the project_categories table to relate projects with categories, each project relates 1 category
+INSERT INTO project_categories (project_id, category_id) VALUES
+(1,1),(2,2),(3,3),(4,3),(5,3),(6,1),
+(7,1),(8,2),(9,2),(10,1),(11,1),(12,2),
+(13,3),(14,3),(15,2),(16,3),(17,4),(18,4);
+
+
