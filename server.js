@@ -2,9 +2,7 @@ import express from 'express';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
-import { getAllOrganizations } from './src/models/organizations.js';
-import { getAllProjects } from './src/models/projects.js';
-import { getAllCategories } from './src/models/categories.js';
+import { router } from './src/routes.js';
 
 
 const __filename = fileURLToPath(import.meta.url);
@@ -48,45 +46,13 @@ app.use((req, res, next) => {
 });
 
 /**
-  * Routes
+  * imported router to handle routes
   */
-app.get('/', (req, res) => {
-    const title = 'Home';
-    res.render('home' , {title});
-});
 
-app.get('/organizations', async (req, res) => {
-    const organizations = await getAllOrganizations();
-    console.log(organizations);
-    
-    const title = 'Our Partners Organizations';
-    res.render('organizations' , {title, organizations});
-});
-
-app.get('/projects', async (req, res) => {
-   const projects = await getAllProjects();
-   console.log(projects);
-
-   const title = 'Service Projects';
-   res.render('projects', {title, projects});
+app.use(router);
 
 
-});
 
-app.get('/categories', async (req, res) => {
-    const categories = await getAllCategories();
-    console.log(categories); 
-
-    const title = 'Categories';
-    res.render('categories', {title, categories});
-});
-
-// Test route for 500 errors
-app.get('/test-error', (req, res, next) => {
-    const err = new Error('This is a test error');
-    err.status = 500;
-    next(err);
-});
 
 // Catch-all route for 404 errors
 app.use((req, res, next) => {
