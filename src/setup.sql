@@ -24,7 +24,8 @@ select * from Organizations
 --creating table projects: 
 CREATE TABLE projects (
 project_id SERIAL PRIMARY KEY,
-CONSTRAINT fk_organization FOREIGN KEY (organization_id) INTEGER NOT NULL REFERENCES Organizations(organization_id),
+organization_id INTEGER NOT NULL,
+CONSTRAINT fk_organization FOREIGN KEY (organization_id)  REFERENCES Organizations(organization_id),
 project_title VARCHAR(150) NOT NULL,
 description VARCHAR(500) NOT NULL,
 location VARCHAR(150) NOT NULL,
@@ -67,8 +68,10 @@ CREATE TABLE categories (
 );
 
 CREATE TABLE project_categories (
-  project_id INTEGER NOT NULL REFERENCES projects(project_id) ON DELETE CASCADE,
-  CONSTRAINT fk_category FOREIGN KEY (category_id) INTEGER NOT NULL REFERENCES categories(category_id) ON DELETE CASCADE,
+  category_id INTEGER NOT NULL,
+  project_id INTEGER NOT NULL,
+  CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES categories(category_id) ON DELETE CASCADE,
+  CONSTRAINT fk_project FOREIGN KEY (project_id) REFERENCES projects(project_id) ON DELETE CASCADE,
   PRIMARY KEY (project_id, category_id)
 );
 
