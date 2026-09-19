@@ -1,0 +1,14 @@
+<%- include('partials/header') %>
+    <main>
+       <h1><%= category.name %></h1>
+       <p><%= category.description %></p>
+       <ul style="list-style: none"> 
+            <% service_projects.forEach(project => { %>
+                <li><%= project.service_project %></li>
+            <% }); %>
+       </ul>
+
+    </main>
+
+
+<%- include('partials/footer') %>

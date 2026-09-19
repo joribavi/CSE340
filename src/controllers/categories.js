@@ -8,5 +8,13 @@ const categoriesPage = async (req, res) => {
     res.render('categories', {title, categories});
 };
 
+const categoryDetailsPage = async (req, res) => {
+    const categoryId = req.params.id;
+    const category = await getCategorybyId(categoryId); 
+    const title = 'Category Details';
+    res.render('category-details', {title, category});
+};
 
-export {categoriesPage}
+
+
+export {categoriesPage, categoryDetailsPage};
