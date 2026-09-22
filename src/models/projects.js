@@ -5,7 +5,7 @@ const getAllProjects = async() => {
         SELECT p.*,
         o.name AS organization_name
         FROM projects p 
-        INNER JOIN organizations o ON p.organization_id = o.organization_id
+        INNER JOIN public.organizations o ON p.organization_id = o.organization_id
     `;
 
     const result = await db.query(query);
@@ -17,7 +17,7 @@ const getProjectsByOrganizationId = async (organizationId) => {
         SELECT
           project_id,
           organization_id,
-          title,
+          project_title,
           description,
           location,
           project_date
@@ -42,7 +42,7 @@ const getUpcomingProjects = async (number_of_projects) => {
            p.organization_id,
            o.name AS organization_name
     FROM projects p 
-    INNER JOIN organizations o ON p.organization_id = o.organization_id
+    INNER JOIN public.Organizations o ON p.organization_id = o.organization_id
     ORDER BY p.project_date ASC
     LIMIT $1;
   `;

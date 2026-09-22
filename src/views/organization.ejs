@@ -3,17 +3,24 @@
 
   <main>
      <h1><%= title %></h1>
-     <h2> <%= organizationDetails.name %></h2>
-     <img src="/images/<%= organizationDetails.logo_filename %>" alt="<%= organizationDetails.name %> logo">
-     <p><%= organizationDetails.description %></p>
+      <section>
+        <img src="/images/<%= organizationDetails.logo_filename %>" 
+             alt="<%= organizationDetails.name %> logo">
+        <h2><%= organizationDetails.name %></h2>
+        <p><%= organizationDetails.description %></p>
+        <p>Contact: <%= organizationDetails.contact_email %></p>
+    </section>
 
-      <p>Here are a few of our partner organizations:</p>
-      <ul>
-         
-            <% organizations.forEach(organization => { %>
-                <li><img src="/images/<%= organization.logo_filename %>" alt="<%= organization.name %> logo"><strong><%= organization.name %></strong>: <%= organization.contact_email %></li>
-            <% }); %>
-      </ul>
+    <h3>Projects</h3>
+    <ul>
+        <% projects.forEach(project => { %>
+            <li>
+                <strong><%= project.project_title %></strong> - 
+                <%= project.description %> 
+                (<%= project.location %>, <%= project.project_date %>)
+            </li>
+        <% }); %>
+    </ul>
     </main>
 
     <%- include('partials/footer') %>
