@@ -10,7 +10,7 @@
         id="name"
         name="name"
         maxlength="150" 
-        value="<%= organizationDetails.organization_name %>"
+        value="<%= organizationDetails.name %>"
       required />
     </div>
 
@@ -20,7 +20,7 @@
         id="description"
         name="description"
         maxlength="500"
-      ><%= organizationDetails.organization_description %></textarea>
+      ><%= organizationDetails.description %></textarea>
     </div>
 
     <div class="form-group">
@@ -29,7 +29,7 @@
         type="email"
         id="contactEmail"
         name="contactEmail"
-        value="<%= organizationDetails.organization_contact_email %>"
+        value="<%= organizationDetails.contact_email %>"
         required
       />
     </div>
@@ -39,7 +39,7 @@
         type="text"
         id="logoFilename"
         name="logoFilename"
-        value="<%= organizationDetails.organization_logo_filename %>"
+        value="<%= organizationDetails.logo_filename %>"
         required />
     </div>
 
