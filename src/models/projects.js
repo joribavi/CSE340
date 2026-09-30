@@ -73,4 +73,33 @@ const getProjectDetails = async (id) => {
   return result.rows[0];
 };
 
-export {getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails}  
+const createProject = async (title, description, date, location, organizationId) => { 
+  const organization_id = parseInt(organizationId, 10); // Convert organizationId to an integer due to error when deploying
+  
+  if (!organizationId) {
+    throw new Error("organization_id is empty or undefined");
+  }
+
+  if (isNaN(organization_id)) {
+    throw new Error(`organization_id not valid: ${organizationId}`);
+  }
+  
+  const query = `
+    INSERT INTO projects (project_title, description, project_date, location, organization_id) 
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING project_id;
+  `; 
+
+  const queryParams = [title, description, date, location, organization_id];
+  const result = await db.query(query, queryParams);
+  if (result.rows.length === 0) { 
+    throw new Error('Failed to create project');
+  }
+  if (process.env.ENABLE_SQL_LOGGING === 'true') {
+    console.log('Created project with ID:', result.rows[0].project_id);
+  }
+  return result.rows[0].project_id; 
+};
+  
+
+export {getAllProjects, getProjectsByOrganizationId, getUpcomingProjects, getProjectDetails, createProject}  
