@@ -7,12 +7,12 @@
                 <label for="categories">Select Categories</label>
                     <% categories.forEach(category => { %>
                         <input type="checkbox" 
-                         id="<%= category.id %>">
-                         name="categories" value="<%= category.id %>">
+                         id="<%= category.id %>"
+                         name="categories" value="<%= category.category_id %>">
                          <label for="<%= category.id %>"><%= category.name %></label><br>
                        
                     <% }) %>
-                </select>
+               
             </div>
 
             <button type="submit">Update Categories</button>
