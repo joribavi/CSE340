@@ -41,5 +41,8 @@ router.post('/new-project', projectValidationRules, processNewProjectForm); // R
 router.get('/projects/:projectId', showAssignCategoriesForm); // Route for assigning categories to a project
 router.post('/projects/:projectId', processAssignCategoriesForm); // Route to handle assigning categories to a project
 
+// Routes to handle the assign categories to project form
+router.get('/assign-categories/:projectId', showAssignCategoriesForm);
+router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
 export {router}

@@ -71,4 +71,4 @@ const  updateCategoryAssignments = async(projectId, categoryIds) => {
 }
 
 
-export {getAllCategories, getCategorybyId, getCategoriesPerProject, getServicesPerCategory, updateCategoryAssignments};  
+export {getAllCategories, getCategorybyId, getCategoriesPerProject, getServicesPerCategory, updateCategoryAssignments, assignCategoryToProject};  
