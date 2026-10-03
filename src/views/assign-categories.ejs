@@ -7,9 +7,9 @@
                 <label for="categories">Select Categories</label>
                     <% categories.forEach(category => { %>
                         <input type="checkbox" 
-                         id="<%= category.id %>"
-                         name="categories" value="<%= category.category_id %>">
-                         <label for="<%= category.id %>"><%= category.name %></label><br>
+                         id="<%= category.category_id %>"
+                         name="categoryIds" value="<%= category.category_id %>">
+                         <label for="<%= category.category_id %>"><%= category.category_name %></label><br>
                        
                     <% }) %>
                

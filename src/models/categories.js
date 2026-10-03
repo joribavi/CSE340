@@ -22,7 +22,7 @@ const getCategorybyId = async(id) => {
 
 const getCategoriesPerProject = async(projectId) => {
     const query = `
-        SELECT c.category_name FROM public.categories c
+        SELECT c.category_name, c.category_id FROM public.categories c
         JOIN public.project_categories pc ON c.category_id = pc.category_id
         WHERE pc.project_id = $1;
     `;  
@@ -54,7 +54,7 @@ const assignCategoryToProject = async(projectId, categoryId) => {
    
 }
 
-const  updateCategoryAssignments = async(projectId, categoryIds) => {
+const updateCategoryAssignments = async(projectId, categoryIds) => {
     // Delete existing category assignments for the project
     const deleteQuery = `
         DELETE FROM public.project_categories WHERE project_id = $1;
@@ -63,8 +63,10 @@ const  updateCategoryAssignments = async(projectId, categoryIds) => {
     await db.query(deleteQuery, [projectId]);
 
     for (const categoryId of categoryIds) {
-        await assignCategoryToProject(projectId, categoryId);
-  
+        const parsedId = parseInt(categoryId, 10);
+    if (!isNaN(parsedId)) {
+      await assignCategoryToProject(projectId, parsedId);
+    }
 
     };
 

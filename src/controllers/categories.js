@@ -1,4 +1,4 @@
-import { getAllCategories, getCategorybyId, getCategoriesPerProject } from "../models/categories.js";
+import { getAllCategories, getCategorybyId, getCategoriesPerProject, assignCategoryToProject, updateCategoryAssignments } from "../models/categories.js";
 import { getProjectDetails} from "../models/projects.js";
 
 const categoriesPage = async (req, res) => {
@@ -17,6 +17,8 @@ const categoryDetailsPage = async (req, res) => {
 };
 
 
+/*
+
 const showAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
     const projectDetails = await getProjectDetails(projectId);
@@ -28,14 +30,38 @@ const showAssignCategoriesForm = async (req, res) => {
 };
 
 const processAssignCategoriesForm = async (req, res) => {
-    const projectId = req.params.projectId;
+    const projectId = parseInt(req.params.projectId,10);
     const selectedCategoryIds = req.body.categories || []; // Ensure it's an array even if no categories are selected
     
     const categoriesIsArray = Array.isArray(selectedCategoryIds) ? selectedCategoryIds : [selectedCategoryIds]; // Convert to array if it's a single value
 
-    await assignCategoriesToProject(projectId, categoriesIsArray); 
+    await assignCategoryToProject(projectId, categoriesIsArray); 
     req.flash('success', 'Categories assigned successfully.');
     res.redirect(`/projects/${projectId}`);
+};
+*/
+
+const showAssignCategoriesForm = async (req, res) => {
+    const projectId = req.params.projectId;
+
+    const projectDetails = await getProjectDetails(projectId);
+    const categories = await getAllCategories();
+    const assignedCategories = await getCategoriesPerProject(projectId);
+
+    const title = 'Assign Categories to Project';
+
+    res.render('assign-categories', { title, projectId, projectDetails, categories, assignedCategories });
+};
+
+const processAssignCategoriesForm = async (req, res) => {
+    const projectId = req.params.projectId;
+    const selectedCategoryIds = req.body.categoryIds || [];
+    
+    // Ensure selectedCategoryIds is an array
+    const categoryIdsArray = Array.isArray(selectedCategoryIds) ? selectedCategoryIds : [selectedCategoryIds];
+    await updateCategoryAssignments(projectId, categoryIdsArray);
+    req.flash('success', 'Categories updated successfully.');
+    res.redirect(`/project/${projectId}`);
 };
 
 export {categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm};
