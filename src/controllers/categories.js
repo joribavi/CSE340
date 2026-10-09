@@ -53,6 +53,7 @@ const showAssignCategoriesForm = async (req, res) => {
     res.render('assign-categories', { title, projectId, projectDetails, categories, assignedCategories });
 };
 
+/*
 const processAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
     const selectedCategoryIds = req.body.categoryIds || [];
@@ -63,5 +64,32 @@ const processAssignCategoriesForm = async (req, res) => {
     req.flash('success', 'Categories updated successfully.');
     res.redirect(`/project/${projectId}`);
 };
+*/
+
+ 
+const processAssignCategoriesForm = async (req, res) => {
+  const projectId = parseInt(req.params.projectId, 10);
+
+  let selected = req.body.categoryIds;
+  if (!selected) {
+    // when no categories are selected, keep current assignments
+    req.flash("info", "No categories selected, keeping current assignments.");
+    return res.redirect(`/project/${projectId}`);
+  }
+
+  // Normalize selected to an array
+  if (!Array.isArray(selected)) {
+    selected = [selected];
+  }
+
+  // Convert selected category IDs to integers and filter out any invalid values
+  const categoryIds = selected.map(id => parseInt(id, 10)).filter(id => !isNaN(id));
+
+  await updateCategoryAssignments(projectId, categoryIds);
+
+  req.flash("success", "Categories updated successfully.");
+  res.redirect(`/project/${projectId}`);
+};
+
 
 export {categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm};

@@ -56,6 +56,7 @@ const showNewProjectForm = async (req, res) => {
    res.render('new-project', { title, organizations });
 };
 
+
 const processNewProjectForm = async (req, res) => {
     const errors = validationResult(req);
 

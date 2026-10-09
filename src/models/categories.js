@@ -2,7 +2,7 @@ import db from './db.js'
 /* code to be worked on bellow */
 const getAllCategories = async() => {
     const query = `
-        SELECT category_name FROM public.categories;
+        SELECT category_name , category_id FROM public.categories;
     `;
 
     const result = await db.query(query);
@@ -12,7 +12,7 @@ const getAllCategories = async() => {
 
 const getCategorybyId = async(id) => {
     const query = `
-        SELECT category_name FROM public.categories WHERE category_id = $1;
+        SELECT category_name , category_id FROM public.categories WHERE category_id = $1;
     `;
 
     const result = await db.query(query, [id]);
@@ -55,10 +55,16 @@ const assignCategoryToProject = async(projectId, categoryId) => {
 }
 
 const updateCategoryAssignments = async(projectId, categoryIds) => {
+  
+    if (!categoryIds || categoryIds.length === 0) {
+    return; // no borrar nada, mantener las asignaciones actuales
+    }
+    
     // Delete existing category assignments for the project
     const deleteQuery = `
         DELETE FROM public.project_categories WHERE project_id = $1;
     `;
+
 
     await db.query(deleteQuery, [projectId]);
 
