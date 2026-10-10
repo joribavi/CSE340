@@ -399,6 +399,7 @@ nav a:active {
 }
 
 /* ========== FORM STYLES ========== */
+/* ========== FORM STYLES ========== */
 form {
   background: var(--color-card-bg);
   padding: 2rem;
@@ -412,14 +413,16 @@ form div {
   margin-bottom: 1.5rem;
 }
 
+/* Estilo general de labels */
 form label {
-  display: block;
   font-weight: 600;
-  margin-bottom: 0.5rem;
   color: var(--color-text);
 }
 
-form input,
+/* Inputs de texto, select y textarea */
+form input[type="text"],
+form input[type="email"],
+form input[type="number"],
 form textarea,
 form select {
   width: 100%;
@@ -431,6 +434,7 @@ form select {
   transition: var(--transition);
   background: var(--color-surface);
   color: var(--color-text);
+  margin-top: 0.5rem;
 }
 
 form input:focus,
@@ -446,6 +450,41 @@ form textarea {
   resize: vertical;
 }
 
+/* ===== CHECKBOXES ===== */
+
+/* ===== GRUPO DE CHECKBOXES ===== */
+.checkbox-section {
+  margin-bottom: 1.5rem;
+}
+
+.checkbox-section > .section-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.75rem; /* espacio entre título y checkboxes */
+  color: var(--color-text);
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center; /* alinea checkbox con texto */
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.checkbox-group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.checkbox-group label {
+  font-weight: 500;
+  cursor: pointer;
+}
+
+
+/* ===== BUTTON STYLES  ===== */
 form button {
   display: inline-block;
   background: var(--color-primary);

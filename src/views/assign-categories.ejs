@@ -1,22 +1,29 @@
 <%- include('partials/header') %>
-    <main>
-        <h1><%= title %></h1>
+<main>
+    <h1><%= title %></h1>
 
-        <form action="/assign-categories/<%= projectId %>" method="POST">
-            <div class="form-group">
-                <label for="categories">Select Categories</label>
-                    <% categories.forEach(category => { %>
-                        <input type="checkbox" 
-                         id="<%= category.category_id %>"
-                         name="categoryIds" value="<%= category.category_id %>">
-                         <label for="<%= category.category_id %>"><%= category.category_name %></label><br>
-                       
-                    <% }) %>
-               
-            </div>
+    <form action="/assign-categories/<%= projectId %>" method="POST">
+        <div class="form-group checkbox-section">
+            <!-- Título de la sección -->
+            <span class="section-title">Select Categories</span>
 
-            <button type="submit">Update Categories</button>
-        </form>
+            <!-- Lista de categorías -->
+            <% categories.forEach(category => { %>
+                <div class="checkbox-group">
+                    <input 
+                        type="checkbox" 
+                        id="category-<%= category.category_id %>" 
+                        name="categoryIds" 
+                        value="<%= category.category_id %>"
+                    >
+                    <label for="category-<%= category.category_id %>">
+                        <%= category.category_name %>
+                    </label>
+                </div>
+            <% }) %>
+        </div>
 
-    </main>
-    <%- include('partials/footer') %>   
+        <button type="submit">Update Categories</button>
+    </form>
+</main>
+<%- include('partials/footer') %>
