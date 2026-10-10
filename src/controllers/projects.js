@@ -1,4 +1,4 @@
-import { getAllProjects,getProjectDetails,getProjectsByOrganizationId,getUpcomingProjects, createProject } from "../models/projects.js";
+import { getAllProjects,getProjectDetails,getProjectsByOrganizationId,getUpcomingProjects, createProject, updateProject } from "../models/projects.js";
 import { getCategoriesPerProject } from "../models/categories.js";
 import { getAllOrganizations } from "../models/organizations.js"; 
 import { body, validationResult } from 'express-validator';
@@ -84,7 +84,38 @@ const processNewProjectForm = async (req, res) => {
 
 };
 
+const showEditProjectForm = async (req, res) => {
+   const { id } = req.params; 
+   const project = await getProjectDetails(id);
+   const organizations = await getAllOrganizations();
+   const title = 'Edit Service Project';
+   res.render('edit-project', { title, project, organizations });
+};
+
+const processEditProjectForm = async (req, res) => {
+   const errors = validationResult(req);  
+   if (!errors.isEmpty()) {
+      errors.array().forEach(error => {
+         req.flash('error', error.msg);
+      });
+   return res.redirect(`/edit-project/${req.params.id}`);
+   }
+   
+   const { title, description, date, location, organization_id } = req.body;
+
+   try {    
+      const projectId = req.params.id;
+      await updateProject(projectId, title, description, date, location, organization_id);
+      req.flash('success', 'Project updated successfully!');
+      res.redirect(`/project/${projectId}`);
+   }
+   catch (error) {
+      console.error('Error updating project:', error);
+      req.flash('error', 'Failed to update project. Please try again.');
+      res.redirect(`/edit-project/${req.params.id}`);
+   }
+};
 
 
 
-export {projectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidationRules};
+export {projectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidationRules, showEditProjectForm, processEditProjectForm};

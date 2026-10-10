@@ -2,7 +2,7 @@ import express from 'express';
 
 import { homePage } from './controllers/index.js';
 import { organizationsPage, showOrganizationDetailsPage, showNewOrganizationForm, processNewOrganizationForm, organizationValidation, showEditOrganizationForm, processEditOrganizationForm } from './controllers/organizations.js';
-import { projectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidationRules } from './controllers/projects.js';
+import { projectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidationRules, processEditProjectForm, showEditProjectForm } from './controllers/projects.js';
 import { categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm} from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 
@@ -44,5 +44,9 @@ router.post('/projects/:projectId', processAssignCategoriesForm); // Route to ha
 // Routes to handle the assign categories to project form
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+
+// Route for editing a project
+router.get('/edit-project/:id', showEditProjectForm); // Route for editing a project
+router.post('/edit-project/:id', projectValidationRules, processEditProjectForm); // Route to handle editing a project submission
 
 export {router}
