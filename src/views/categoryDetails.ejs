@@ -1,17 +1,16 @@
 <%- include('partials/header') %>
     <main>
        <h1><%= category.category_name %></h1>
-       <p><%= category.description %></p>
-       <h2>Service Projects</h2>
+      
        <ul style="list-style: none"> 
-            <% service_projects.forEach(project => { %>
+            <% projects.forEach(project => { %>
                 <li>
                     <a href="/projects/<%= project.id %>"><%= project.service_project %></a>
                     <%= project.project_title %>
                 </li>
             <% }); %>
        </ul>
-       <p><a href="/edit-category/<%= category.id %>">Edit Category</a></p>
+       <p><a href="/edit-category/<%= category.category_id %>">Edit Category</a></p>
 
     </main>
 

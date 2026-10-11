@@ -1,4 +1,4 @@
-import { getAllCategories, getCategorybyId, getCategoriesPerProject,  updateCategoryAssignments } from "../models/categories.js";
+import { getAllCategories, getCategorybyId, getCategoriesPerProject,  updateCategoryAssignments, updateCategory, createNewCategory } from "../models/categories.js";
 import { getProjectDetails} from "../models/projects.js";
 import { body, validationResult } from 'express-validator';
 
@@ -14,8 +14,9 @@ const categoriesPage = async (req, res) => {
 const categoryDetailsPage = async (req, res) => {
     const categoryId = req.params.id;
     const category = await getCategorybyId(categoryId); 
+    const projects = await getCategoriesPerProject(categoryId);
     const title = 'Category Details';
-    res.render('categoryDetails', {title, category});
+    res.render('categoryDetails', {title, category, projects});
 };
 
 
