@@ -11,6 +11,8 @@ MAIN CSS
   box-sizing: border-box;
 }
 
+
+
 :root {
   --color-primary:  #b35f2a;        /* orange */
   --color-primary-dark: #522312;
@@ -109,7 +111,7 @@ h1 {
   font-size: 3rem;
   font-weight: 700;
   color: var(--color-primary);
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
   letter-spacing: -0.02em;
   line-height: 1.2;
   margin: 0 auto;

@@ -1,4 +1,5 @@
 import db from './db.js'
+
 /* code to be worked on bellow */
 const getAllCategories = async() => {
     const query = `
@@ -78,5 +79,26 @@ const updateCategoryAssignments = async(projectId, categoryIds) => {
 
 }
 
+const updateCategory = async(categoryId, categoryName) => {
+    const query = `
+        UPDATE public.categories
+        SET category_name = $1
+        WHERE category_id = $2;
+    `;
 
-export {getAllCategories, getCategorybyId, getCategoriesPerProject, getServicesPerCategory, updateCategoryAssignments};  
+    const result = await db.query(query, [categoryName, categoryId]);
+
+    return result.rowCount > 0; // Return true if the update was successful
+};
+
+const createNewCategory = async(categoryName) => {
+    const query = `
+        INSERT INTO public.categories (category_name)
+        VALUES ($1);
+    `;
+ const result = await db.query(query, [categoryName]);
+    return result.rowCount > 0; // Return true if the insert was successful
+};    
+
+
+export {getAllCategories, getCategorybyId, getCategoriesPerProject, getServicesPerCategory, updateCategoryAssignments, updateCategory, assignCategoryToProject, createNewCategory};  

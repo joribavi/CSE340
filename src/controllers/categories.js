@@ -1,5 +1,7 @@
 import { getAllCategories, getCategorybyId, getCategoriesPerProject,  updateCategoryAssignments } from "../models/categories.js";
 import { getProjectDetails} from "../models/projects.js";
+import { body, validationResult } from 'express-validator';
+
 
 const categoriesPage = async (req, res) => {
     const categories = await getAllCategories();
@@ -13,7 +15,7 @@ const categoryDetailsPage = async (req, res) => {
     const categoryId = req.params.id;
     const category = await getCategorybyId(categoryId); 
     const title = 'Category Details';
-    res.render('category-details', {title, category});
+    res.render('categoryDetails', {title, category});
 };
 
 
@@ -92,4 +94,47 @@ const processAssignCategoriesForm = async (req, res) => {
 };
 
 
-export {categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm};
+const showNewCategoryForm = (req, res) => {
+    const title = 'New Category';
+    res.render('new-category', { title });
+};
+
+const showEditCategoryForm = async (req, res) => {
+    const categoryId = req.params.id;
+    const category = await getCategorybyId(categoryId);
+    const title = 'Edit Category';
+    res.render('edit-category', { title, category });
+
+};
+
+const processEditCategoryForm = async (req, res) => {
+    const categoryId = req.params.id;
+    const { category_name } = req.body;
+
+    await updateCategory(categoryId, category_name);
+    req.flash('success', 'Category updated successfully.');
+    res.redirect(`/category/${categoryId}`);    
+};
+
+const processNewCategoryForm = async (req, res) => {
+    const { category_name } = req.body;
+    // Here you would typically call a model function to save the new category to the database
+    // For example: await createNewCategory(category_name);
+    req.flash('success', 'New category created successfully.');
+    res.redirect('/categories');
+
+    await createNewCategory(category_name); 
+};
+
+const categoryValidationRules = [
+    // Validation rules for category_name
+    body('category_name')   
+        .trim()
+        .notEmpty().withMessage('Category name is required.')
+        .isLength({ min: 3, max: 100 }).withMessage('Category name must be between 3 and 100 characters long.'),
+];
+  
+
+
+
+export {categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm, showNewCategoryForm,categoryValidationRules, showEditCategoryForm, processEditCategoryForm, processNewCategoryForm};

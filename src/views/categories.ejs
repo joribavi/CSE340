@@ -5,11 +5,12 @@
           <ul style="list-style: none">  
             <% categories.forEach(category => { %>
                 <li>
-                  <a href="/categories/<%= category.id %>"><%= category.category_id %></a>
-                  <%= category.category_name %>
+                  <a href="/categories/<%= category.id %>"><%= category.category_name %></a>
+                
                 </li>
             <% }); %>
           </ul>  
+          <p><a href="/new-category">Create a New Category</a></p>
     </main>
 
  <%- include('partials/footer') %>
