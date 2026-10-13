@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/joribavi/CSE340#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cjs": "^0.0.11",
     "ejs": "^5.0.2",
     "express": "^5.2.1",

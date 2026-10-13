@@ -5,7 +5,7 @@ import { organizationsPage, showOrganizationDetailsPage, showNewOrganizationForm
 import { projectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidationRules, processEditProjectForm, showEditProjectForm } from './controllers/projects.js';
 import { categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm, categoryValidationRules, showNewCategoryForm, showEditCategoryForm, processEditCategoryForm, processNewCategoryForm} from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-
+import {showUserRegistrationForm, processUserRegistrationForm} from './controllers/users.js';
 
 
 
@@ -55,5 +55,8 @@ router.post('/edit-category/:id', categoryValidationRules, processEditCategoryFo
 
 router.get('/new-category', showNewCategoryForm); // Route for new category page
 router.post('/new-category', categoryValidationRules, processNewCategoryForm); // Route to handle new category form submission
+
+router.get('/register', showUserRegistrationForm); // Route for user registration page
+router.post('/register', processUserRegistrationForm); // Route to handle user registration form submission
 
 export {router}
