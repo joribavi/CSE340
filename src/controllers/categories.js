@@ -119,12 +119,13 @@ const processEditCategoryForm = async (req, res) => {
 
 const processNewCategoryForm = async (req, res) => {
     const { category_name } = req.body;
+     await createNewCategory(category_name); 
     // Here you would typically call a model function to save the new category to the database
     // For example: await createNewCategory(category_name);
     req.flash('success', 'New category created successfully.');
     res.redirect('/categories');
 
-    await createNewCategory(category_name); 
+   
 };
 
 const categoryValidationRules = [

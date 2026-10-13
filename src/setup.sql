@@ -89,3 +89,39 @@ INSERT INTO project_categories (project_id, category_id) VALUES
 (13,3),(14,3),(15,2),(16,3),(17,4),(18,4);
 
 
+--creating roles table
+CREATE TABLE roles (
+   role_id SERIAL PRIMARY KEY,
+   role_name VARCHAR(150) UNIQUE NOT NULL,
+   role_description VARCHAR(500)   -- aquí sí puedes limitar a 500 caracteres
+);
+
+
+--inserting data into roles table 
+INSERT INTO roles (role_name, role_description) VALUES
+('user', 'Standard user with basic access.'),
+('admin', 'Administrator with full system access.');
+
+--creating users table
+
+CREATE TABLE users (
+  user_id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  role_id INT REFERENCES roles(role_id),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+--creating test user 
+INSERT INTO users (name, email, password_hash, role_id)
+VALUES ('test_user', 'test_user@example.com', 'placeholder_hash', 2);
+
+--testing relationships between tables
+SELECT u.user_id, u.name, u.email, r.role_name
+FROM users u
+INNER JOIN roles r ON u.role_id = r.role_id;
+
+--deleting test user
+DELETE FROM users WHERE email = 'test_user@example.com';
