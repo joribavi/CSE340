@@ -30,7 +30,7 @@ const processLoginForm = async (req, res) => {
     try {
         const user = await authenticateUser(email, password);
         if (user) {
-            req.session.userId = user.user_id;
+            req.session.user= user;
             req.flash('success', 'Login successful');
             console.log('User logged in:', user);
             res.redirect('/');
@@ -46,6 +46,8 @@ const processLoginForm = async (req, res) => {
 };  
 
 const processLogout = (req, res) => {
+    req.flash('success', 'Logged out successfully');
+
     req.session.destroy((err) => {
         if (err) {
             console.error('Error destroying session:', err);
@@ -53,7 +55,6 @@ const processLogout = (req, res) => {
             res.redirect('/');
         } else {
             res.clearCookie('connect.sid');
-            req.flash('success', 'Logged out successfully');
             res.redirect('/login');
         }
     });
