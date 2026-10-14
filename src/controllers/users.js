@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt'
-import {createNewUser} from '../models/users.js'
+import {createNewUser, authenticateUser} from '../models/users.js'
 
-const  showUserRegistrationForm = (req, res) => {
+const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
 };
 
@@ -21,4 +21,45 @@ const processUserRegistrationForm = async (req, res) => {
     };
 }
 
-export { showUserRegistrationForm, processUserRegistrationForm };
+const showLoginForm = (req, res) => {
+    res.render('login', { title: 'Login' });
+};
+
+const processLoginForm = async (req, res) => {
+    const { email, password } = req.body;
+    try {
+        const user = await authenticateUser(email, password);
+        if (user) {
+            req.session.userId = user.user_id;
+            req.flash('success', 'Login successful');
+            console.log('User logged in:', user);
+            res.redirect('/');
+        } else {
+            req.flash('error', 'Invalid email or password');
+            res.redirect('/login');
+        }
+    } catch (error) {
+        console.error('Error during login:', error);
+        req.flash('error', 'Error during login');
+        res.redirect('/login');
+    };
+};  
+
+const processLogout = (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            req.flash('error', 'Error logging out');
+            res.redirect('/');
+        } else {
+            res.clearCookie('connect.sid');
+            req.flash('success', 'Logged out successfully');
+            res.redirect('/login');
+        }
+    });
+};
+
+
+
+
+export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout };
