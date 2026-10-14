@@ -52,4 +52,5 @@ const authenticateUser = async (email, password) => {
         return null; // Authentication failed
     }
 };
+
 export { createNewUser, authenticateUser};

@@ -61,6 +61,13 @@ const processLogout = (req, res) => {
 };
 
 
+const requireLogin = (req, res, next) => {
+    if (!req.session || !req.session.user) {
+        req.flash('error', 'You must be logged in to view this page');
+        return res.redirect('/login');
+    } 
+    next();
+};
 
 
-export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout };
+export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin };
