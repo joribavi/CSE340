@@ -125,3 +125,6 @@ INNER JOIN roles r ON u.role_id = r.role_id;
 
 --deleting test user
 DELETE FROM users WHERE email = 'test_user@example.com';
+
+--changing role for admin user for testing purposes
+UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';

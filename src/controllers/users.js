@@ -76,10 +76,14 @@ const showDashboard = (req, res) => {
 
 const requireRole = (role) => {
     return (req, res, next) => {
-        if (!req.session || !req.session.user || req.session.user.role !== role) {
+        if (!req.session || !req.session.user) {
             req.flash('error', 'You are not authorized to view this page');
             return res.redirect('/login');
         }
+        if (req.session.user.role !== role) {
+            req.flash('error', 'You are not authorized to view this page');
+            return res.redirect('/');
+        };
         next();
     };
 };

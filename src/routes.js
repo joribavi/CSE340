@@ -16,9 +16,9 @@ router.get('/organizations', organizationsPage);
 router.get('/projects', projectsPage);
 router.get('/categories', categoriesPage);
 // Route for new organization page
-router.get('/new-organization', showNewOrganizationForm);
+router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
 // Route to handle new organization form submission
-router.post('/new-organization', organizationValidation, processNewOrganizationForm);
+router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);
 
 
 
@@ -31,30 +31,30 @@ router.get('/project/:id', showProjectDetailsPage);
 
 router.get('/category/:id', categoryDetailsPage); // Route for category details page
 
-router.get('/edit-organization/:id', showEditOrganizationForm); // Route for editing an organization
+router.get('/edit-organization/:id', requireRole('admin'), showEditOrganizationForm); // Route for editing an organization
 
-router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm); // Route to handle editing an organization submission
+router.post('/edit-organization/:id', requireRole('admin'), organizationValidation, processEditOrganizationForm); // Route to handle editing an organization submission
 
-router.get('/new-project', showNewProjectForm); // Route for new project page
-router.post('/new-project', projectValidationRules, processNewProjectForm); // Route to handle new project form submission  
+router.get('/new-project', requireRole('admin'), showNewProjectForm); // Route for new project page
+router.post('/new-project', requireRole('admin'), projectValidationRules, processNewProjectForm); // Route to handle new project form submission
 
 router.get('/projects/:projectId', showAssignCategoriesForm); // Route for assigning categories to a project
 router.post('/projects/:projectId', processAssignCategoriesForm); // Route to handle assigning categories to a project
 
 // Routes to handle the assign categories to project form
-router.get('/assign-categories/:projectId', showAssignCategoriesForm);
-router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+router.get('/assign-categories/:projectId', requireRole('admin'), showAssignCategoriesForm);
+router.post('/assign-categories/:projectId', requireRole('admin'), processAssignCategoriesForm);
 
 // Route for editing a project
-router.get('/edit-project/:id', showEditProjectForm); // Route for editing a project
-router.post('/edit-project/:id', projectValidationRules, processEditProjectForm); // Route to handle editing a project submission
+router.get('/edit-project/:id', requireRole('admin'), showEditProjectForm); // Route for editing a project
+router.post('/edit-project/:id', requireRole('admin'), projectValidationRules, processEditProjectForm); // Route to handle editing a project submission
 
 // Routes for editing a category
-router.get('/edit-category/:id', showEditCategoryForm); // Route for editing a category
-router.post('/edit-category/:id', categoryValidationRules, processEditCategoryForm); // Route to handle editing a category submission
+router.get('/edit-category/:id', requireRole('admin'), showEditCategoryForm); // Route for editing a category
+router.post('/edit-category/:id', requireRole('admin'), categoryValidationRules, processEditCategoryForm); // Route to handle editing a category submission
 
-router.get('/new-category', showNewCategoryForm); // Route for new category page
-router.post('/new-category', categoryValidationRules, processNewCategoryForm); // Route to handle new category form submission
+router.get('/new-category', requireRole('admin'), showNewCategoryForm); // Route for new category page
+router.post('/new-category', requireRole('admin'), categoryValidationRules, processNewCategoryForm); // Route to handle new category form submission
 
 router.get('/register', showUserRegistrationForm); // Route for user registration page
 router.post('/register', processUserRegistrationForm); // Route to handle user registration form submission
