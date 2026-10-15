@@ -74,4 +74,14 @@ const showDashboard = (req, res) => {
     res.render('dashboard', { title: 'Dashboard', name: user.name , email: user.email });
 };
 
-export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard };
+const requireRole = (role) => {
+    return (req, res, next) => {
+        if (!req.session || !req.session.user || req.session.user.role !== role) {
+            req.flash('error', 'You are not authorized to view this page');
+            return res.redirect('/login');
+        }
+        next();
+    };
+};
+
+export { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole };

@@ -13,4 +13,8 @@
     <p><a href="/dashboard">My Dashboard</a></p>
     <% } %>
     <%- include('partials/footer') %>
+
+    <% if (role === 'admin') { %>
+    <p><a href="/admin">Administrator Panel</a></p>
+    <% } %>
  

@@ -63,6 +63,12 @@ app.use((req, res, next) => {
     res.locals.isLoggedIn = false;
     if (req.session && req.session.user) {
         res.locals.isLoggedIn = true;
+         res.locals.user = req.session.user;          
+         res.locals.role = req.session.user.role; 
+    }
+    else {
+    res.locals.user = null;
+    res.locals.role = null;
     }
 
     res.locals.NODE_ENV = NODE_ENV;
