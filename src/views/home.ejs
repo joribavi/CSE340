@@ -12,9 +12,12 @@
      <% if (isLoggedIn) { %>
     <p><a href="/dashboard">My Dashboard</a></p>
     <% } %>
-    <%- include('partials/footer') %>
 
-    <% if (role === 'admin') { %>
+       <% if (role === 'admin') { %>
     <p><a href="/admin">Administrator Panel</a></p>
     <% } %>
+    
+    <%- include('partials/footer') %>
+
+ 
  
