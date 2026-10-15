@@ -55,4 +55,14 @@ const authenticateUser = async (email, password) => {
     }
 };
 
-export { createNewUser, authenticateUser};
+const getAllUsers = async () => {
+  const query = `
+    SELECT u.user_id, u.name, u.email, r.role_name AS role
+    FROM users u
+    JOIN roles r ON u.role_id = r.role_id
+  `;
+  const result = await db.query(query);
+  return result.rows; // 👈 siempre un array
+};
+
+export { createNewUser, authenticateUser, getAllUsers };

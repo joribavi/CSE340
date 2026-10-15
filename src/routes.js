@@ -5,7 +5,7 @@ import { organizationsPage, showOrganizationDetailsPage, showNewOrganizationForm
 import { projectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidationRules, processEditProjectForm, showEditProjectForm } from './controllers/projects.js';
 import { categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm, categoryValidationRules, showNewCategoryForm, showEditCategoryForm, processEditCategoryForm, processNewCategoryForm} from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-import {showUserRegistrationForm, processUserRegistrationForm, processLoginForm, processLogout, showLoginForm, showDashboard, requireLogin, requireRole} from './controllers/users.js';
+import {showUserRegistrationForm, processUserRegistrationForm, processLoginForm, processLogout, showLoginForm, showDashboard, requireLogin, requireRole, displayUsersPage} from './controllers/users.js';
 
 
 
@@ -64,12 +64,9 @@ router.post('/login', processLoginForm); // Route to handle user login form subm
 
 router.get('/logout', processLogout); // Route to handle user logout
 
-router.get('/dashboard', requireLogin, showDashboard); // Route for user dashboard page, requires login to access, after successful login, user is redirected to the dashboard page
+router.get('/dashboard', requireLogin,  showDashboard); // Route for user dashboard page, requires login to access, after successful login, user is redirected to the dashboard page
 
-router.get('/admin', requireLogin, requireRole('admin'), (req, res) => {
-    res.render('admin', { title: 'Admin Page',
-        role: req.session.user.role });
-    
-}); // Route for admin page, requires login and admin role to access
+
+router.get('/users', requireLogin, requireRole('admin'), displayUsersPage); // Route for users page, requires login and admin role to access    
 
 export {router}

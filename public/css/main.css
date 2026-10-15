@@ -509,3 +509,28 @@ form button:hover {
 form button:active {
   transform: scale(0.96);
 }
+
+/* ===== users  ===== */
+.users-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.user-list {
+  list-style: none;
+  padding: 0;
+}
+
+.user-card {
+  background: #f9f9f9;       /* fondo suave */
+  border: 1px solid #ddd;    /* borde ligero */
+  border-radius: 6px;        /* esquinas redondeadas */
+  padding: 1rem;             /* espacio interno */
+  margin-bottom: 1rem;       /* separación entre usuarios */
+  transition: box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1); /* efecto al pasar el mouse */
+}
