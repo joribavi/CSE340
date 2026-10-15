@@ -21,10 +21,10 @@ const createNewUser = async(name, email, passwordHash) => {
 
 const findUserByEmail = async (email) => {
     const query = `
-        SELECT user_id, name, email, password_hash, role_name 
-        FROM users 
-        JOIN roles ON users.role_id = roles.role_id
-        WHERE email = $1
+        SELECT u.user_id, u.name, u.email, u.password_hash, r.role_name AS role
+        FROM users u
+        JOIN roles r ON u.role_id = r.role_id
+        WHERE u.email = $1
     `;
     const queryParams = [email];
     
@@ -36,6 +36,7 @@ const findUserByEmail = async (email) => {
     
     return result.rows[0];
 };
+
 
 const verifyPassword = async (password, passwordHash) => {
     return bcrypt.compare(password, passwordHash);
