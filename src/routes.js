@@ -5,7 +5,7 @@ import { organizationsPage, showOrganizationDetailsPage, showNewOrganizationForm
 import { projectsPage, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidationRules, processEditProjectForm, showEditProjectForm } from './controllers/projects.js';
 import { categoriesPage, categoryDetailsPage, showAssignCategoriesForm, processAssignCategoriesForm, categoryValidationRules, showNewCategoryForm, showEditCategoryForm, processEditCategoryForm, processNewCategoryForm} from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
-import {showUserRegistrationForm, processUserRegistrationForm, processLoginForm, processLogout, showLoginForm} from './controllers/users.js';
+import {showUserRegistrationForm, processUserRegistrationForm, processLoginForm, processLogout, showLoginForm, showDashboard, requireLogin} from './controllers/users.js';
 
 
 
@@ -63,5 +63,7 @@ router.get('/login', showLoginForm); // Route for user login page
 router.post('/login', processLoginForm); // Route to handle user login form submission
 
 router.get('/logout', processLogout); // Route to handle user logout
+
+router.get('/dashboard', requireLogin, showDashboard); // Route for user dashboard page, requires login to access, after successful login, user is redirected to the dashboard page
 
 export {router}
