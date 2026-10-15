@@ -16,7 +16,10 @@
                 <li><a href="/project/<%= project.project_id %>">Project Link</a></li>
               </ul>  
             <% }); %>
-           <p><a href="/new-project">Add a new project</a></p>
+            <% if (user && user.role_name === 'admin') { %>
+           <a href="/new-project">Add New Project</a>
+           <% } %>
+          
        
       </main>
 

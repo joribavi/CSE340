@@ -9,9 +9,11 @@
         <h2><%= organizationDetails.name %></h2>
         <p><%= organizationDetails.description %></p>
         <p>Contact: <%= organizationDetails.contact_email %></p>
-      <p> <a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p> 
+     
       </section>
-
+       <% if (user && user.role_name === 'admin') { %>
+      <p> <a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p> 
+      <% } %> 
     <h3>Projects</h3>
     <ul>
         <% projects.forEach(project => { %>

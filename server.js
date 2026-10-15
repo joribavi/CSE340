@@ -70,6 +70,8 @@ app.use((req, res, next) => {
     res.locals.user = null;
     res.locals.role = null;
     }
+    
+   
 
     res.locals.NODE_ENV = NODE_ENV;
     next();
