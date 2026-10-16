@@ -31,6 +31,12 @@ const processLoginForm = async (req, res) => {
         const user = await authenticateUser(email, password);
         if (user) {
             req.session.user= user;
+            /* likely better so to avoid unnecessary properties to be stored in the session: req.session.user = {
+    id: user.user_id,
+    name: user.name,
+    email: user.email,
+    role: user.role
+};*/
             req.flash('success', 'Login successful');
             console.log('User logged in:', user);
             res.redirect('/');
